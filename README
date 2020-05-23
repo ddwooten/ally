@@ -1,0 +1,18 @@
+Author: Daniel Wooten
+Date: 05/22/2020
+
+
+Welcome to Daniel Wooten's Data Challenge submission! You've started at the
+right place!
+
+First, a brief tour. The src/ directory contains all the executable files as
+well as any supporting files such as source code. The tests/ directory contains
+all the unit, integration, and system tests for this code suite. The docs/
+directory is the next place you should visit! Inside there are two
+sub-directories; um/ and api/. um/ is where you can find the user manual, a
+helpful guide on how to use the iss_system_status code ( ISS for short ). Inside
+of the api/ sub-directory you will find the applications user interface 
+document, api.pdf, which contains a more technical nuts-and-bolts look at the 
+internals of iss and how it works.
+
+As far as licensure, this work is covered under the Eclipse Public Licence.
