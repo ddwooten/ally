@@ -13,7 +13,7 @@ This convention is to allow for test driven development in Python without the
 user needing to modify their system just to run this small testing package.
 The docs/ directory is the next place you should visit! Inside there are two
 sub-directories; um/ and api/. um/ is where you can find the user manual, a
-helpful guide on how to use the iss_system_status code ( ISS for short ). Inside
+helpful guide on how to use the "question" code. Inside
 of the api/ sub-directory you will find the applications user interface 
 document, api.pdf, which contains a more technical nuts-and-bolts look at the 
 internals of iss and how it works.

@@ -6,7 +6,7 @@
 
 # This file contains the unit testing infrastructure
 
-from source.iss import iss
+from source.question import question 
 
 def version_test():
 	"""Tests to see if the iss class returns its version number correctly"""
@@ -15,7 +15,7 @@ def version_test():
 
 # Get an instance of the class to work with
 
-	station = iss()
+	station = question()
 
 # Check if the version number is correct
 
