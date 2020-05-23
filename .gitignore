@@ -32,3 +32,4 @@ RemoteSystemsTempFiles
 *.m
 *.txt.out
 *.swo
+*.bak
