@@ -5,7 +5,8 @@
 import os
 import urllib
 import json
-from datetime import timezone
+import math
+from datetime import datetime, timezone
 
 from opennotify.iss import *
 from opennotify.update import update_tle
@@ -148,25 +149,38 @@ class question():
 	def respond(self):
 		"""This function manages the response to the user query"""
 		
-# Collect the necessary return data given the user query
-
-		breakpoint()
+# If the request was for the current location of the ISS, collect and report
+# get_location is method from the Open-Notify-API
 
 		if self.opt  == "loc":
-
-# get_location is method from the Open-Notify-API
 
 			self.data = get_location()
 
 			print("The ISS's current location at {} UTC is ({:.4f}, {:.4f}).\n".format(datetime.datetime.now().replace(tzinfo=timezone.utc), self.data['iss_position']['latitude'],
 			      self.data['iss_position']['longitude']))
 
+# If the request was for the people aboard, get that data and report
+
 		if self.opt == "people":
 
-			self.data = self.get_people()
+			self.get_people()
+
+			if self.data is not None:
+				
+				print("The people currently in space are...\n")
+
+				for person in self.data:
+
+					print("\nName: {}\nCraft: {}\n".format(person['name'], person['craft']))
+
+			else:
+
+				print("Error: Unable to retrieve personel list for the ISS. Please check your internet connection and try again.\n")
 
 		if self.opt == "pass":
 
+# If the request was for when the ISS might pass over a particular location,
+# get that data and respond
 # get_passes is also a method from the Open-Notify-API. On ValueError is sends
 # its own error message when the ISS remains below the horizon. Rather than exit
 # on an error, I gracefully catch this and tell the user
@@ -174,6 +188,15 @@ class question():
 			try:
 
 				self.data = get_passes(self.lon, self.lat, 0, 1)
+
+				if self.data is not None:
+
+					minutes = int(self.data['response'][0]['duration'] / 60)
+
+					seconds = self.data['response'][0]['duration'] - minutes * 60
+
+					date = datetime.datetime.fromtimestamp(self.data['request']['datetime'])
+					print("The ISS will be overhead ({}, {}) at {} UTC for {} minutes and {} seconds.\n".format(self.lat, self.lon, date, minutes, seconds)) 
 
 			except ValueError:
 

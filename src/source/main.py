@@ -37,7 +37,7 @@ def main():
 
 # Let the user know they have sucessfully entered the program
 
-	print("Welcome to the ISS status check engine!\n")
+	print("\nWelcome to the ISS status check engine!\n")
 
 # Initiate an instance of the question class
 
