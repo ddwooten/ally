@@ -17,7 +17,7 @@ def main():
 
 # Take in the command line arguments
 
-	opt = sys.argv[1:] 
+	opt = sys.argv[1] 
 
 	if len(sys.argv) > 2:
 
@@ -38,6 +38,12 @@ def main():
 # Have the question class check the input for correctness  
 
 	query.check_input(opt, args)
+
+# If the input is bad query.exit will be set to 1, exit as such
+
+	if query.exit > 0:
+
+		return
 
 # Have the question class respond to the reqest posed by the input
 
