@@ -1,7 +1,5 @@
 #!/home/dwooten/anaconda3/bin/python3
 
-# This file contains the iss class and its methods
-
 import os
 import urllib
 import json
@@ -11,29 +9,50 @@ from datetime import datetime, timezone
 from opennotify.iss import *
 from opennotify.update import update_tle
 
+## This is the 'question' class - it executes input checking and response.
+#
+# This class is employed by the main function, found in the file main.py found
+# inside this same subdirectory. The main function manages the calling of the
+# question class methods. 
 class question():
 
 	def __init__(self):
-		"""Standard init function for a python class"""
-
+		"""Standard constructor for a python class"""
+		
+		##@var args
+		# formatted input arguments
 		self.args = None
-
+		
+		##@var data
+		# retrieved iss data
 		self.data = None
 
+		##@var exit
+		# Status variable which can lead to early termination
 		self.exit = 0
-
+		
+		##@var lat
+		# formatted and checked latitude
 		self.lat = None
-
+	
+		##@var lon
+		# formatted and checked longitude
 		self.lon = None
-
+		
+		##@var opt
+		# formatted and checked input option
 		self.opt = None
 
+		##@var version
+		# code version number
 		self.version = 1.0
 
+# This calls the Open-Notify-API ISS info retrieval method, necessary for
+# answering any user question	
 		update_tle()
 
 	def check_input(self, opt, args):
-		"""This function checks the user input for correctness"""
+		"""Checks the user input for correctness."""
 
 # First, ensure that the opt argument is of type string
 
@@ -66,7 +85,7 @@ class question():
 			self.check_pass_arguments(args)
 
 	def check_pass_arguments(self, args):
-		"""This funtion checks that arguments passed for the "pass"
+		"""Checks that arguments passed for the "pass"
 	        command line option are of valid type and range."""
 
 # Pass requires a latitude and a longtitude coordinate pair, if there are not
@@ -83,8 +102,9 @@ class question():
 # Attempt to convert the latitude input to a float value
 
 		try:
-
-			lat = float(args[0])
+			##@var latit
+			# temporary holding variable for unchecked latitude
+			latit = float(args[0])
 
 		except ValueError:
 
@@ -97,8 +117,10 @@ class question():
 # Attempt to convert the longitude input to a float value
 
 		try:
-
-			lon = float(args[1])
+			
+			##@var longi
+			# temporary holding variable for unchecked longitude
+			longi = float(args[1])
 
 		except ValueError:
 
@@ -110,9 +132,9 @@ class question():
 
 # Check that latitude is within bounds
 
-		if lat < -90.0 or lat > 90.0:
+		if latit < -90.0 or latit > 90.0:
 
-			print("Error: Latitude, {}, is out of bounds. Acceptable values for latitude range [-90, 90].\n".format(lat))
+			print("Error: Latitude, {}, is out of bounds. Acceptable values for latitude range [-90, 90].\n".format(latit))
 
 			self.exit = 1
 
@@ -120,9 +142,9 @@ class question():
 
 # Check that longitude is within bounds
 
-		if lon < -180.0 or lon > 180.0:
+		if longi < -180.0 or longi > 180.0:
 
-			print("Error: Longitude, {}, is out of bounds. Acceptable values for latitude range [-180, 180].\n".format(lon))
+			print("Error: Longitude, {}, is out of bounds. Acceptable values for longitude range [-180, 180].\n".format(longi))
 
 			self.exit = 1
 
@@ -130,16 +152,18 @@ class question():
 
 # If the arguments are good, set them
 
-		self.lat = lat
+		self.lat = latit
 
-		self.lon = lon
+		self.lon = longi
 
 	def get_people(self):
 		"""This function pulls the current crew roster for the ISS off
-		of Open-Notify's website as their API has hard codded values"""
+		of Open-Notify's website as their API has hard codded values."""
 
 # Pull the most recent crew roster from the web
-
+		
+		##@var data
+		# complete record from the Open-Notify-API ISS personel page
 		data = json.loads(urllib.request.urlopen("http://api.open-notify.org/astros.json").read())
 
 # Extract the list of people and save that
@@ -165,13 +189,19 @@ class question():
 
 			self.get_people()
 
+# If the data pull was sucessful...
+
 			if self.data is not None:
 				
 				print("The people currently in space are...\n")
 
+# Print out each person in the crew roster
+
 				for person in self.data:
 
 					print("\nName: {}\nCraft: {}\n".format(person['name'], person['craft']))
+
+# If the data pull was unsucessful...
 
 			else:
 
@@ -189,6 +219,8 @@ class question():
 
 				self.data = get_passes(self.lon, self.lat, 0, 1)
 
+# If the data pull was sucessful...
+
 				if self.data is not None:
 
 					minutes = int(self.data['response'][0]['duration'] / 60)
@@ -198,6 +230,16 @@ class question():
 					date = datetime.datetime.fromtimestamp(self.data['request']['datetime'])
 					print("The ISS will be overhead ({}, {}) at {} UTC for {} minutes and {} seconds.\n".format(self.lat, self.lon, date, minutes, seconds)) 
 
+# If the data pull was unsucessful...
+
+				else:
+
+					print("Error: Failure to collect ISS personel roster. Please check your internet connection and try again.\n")
+
+# In the event that Open-Notify informs us the ISS will be below the horizon
+
 			except ValueError:
 
 				print("Error: ISS does not pass over the coordinates ({}, {}).\n".format(self.lat, self.lon))
+
+# And this concludes the 'question' class
