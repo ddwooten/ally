@@ -3,6 +3,9 @@
 # This file contains the iss class and its methods
 
 import os
+import urllib
+import json
+from datetime import timezone
 
 from opennotify.iss import *
 from opennotify.update import update_tle
@@ -35,7 +38,7 @@ class question():
 
 		if type(opt) is not str:
 
-			print("Error: First command line argument, {}, is not of type string.\n Acceptable command line arguments following the invocation of the executable include and are limited to...\n1. loc\n2. pass\n3. people.\n".format(opt))
+			print("Error: First command line argument, {}, is not of type string.\n Acceptable command line arguments following the invocation of the executable include and are limited to...\n1. loc\n2. pass\n3. people\n".format(opt))
 
 			self.exit = 1
 
@@ -43,9 +46,9 @@ class question():
 
 # Following assurances of type string, check that opt is an acceptable choice
 
-		if opt is not in ["loc", "pass", "people"]:
+		if opt not in ["loc", "pass", "people"]:
 
-			print("Error: First command line argument, {}, is not an acceptable option.\n Acceptable command line arguments following the invocation of the executable include and are limited to...\n1. loc\n2. pass\n3. people.\n".format(opt))
+			print("Error: First command line argument, {}, is not an acceptable option.\n Acceptable command line arguments following the invocation of the executable include and are limited to...\n1. loc\n2. pass\n3. people\n".format(opt))
 
 			self.exit = 1
 
@@ -61,7 +64,7 @@ class question():
 
 			self.check_pass_arguments(args)
 
-	def check_pass_arguments(Self, args):
+	def check_pass_arguments(self, args):
 		"""This funtion checks that arguments passed for the "pass"
 	        command line option are of valid type and range."""
 
@@ -72,13 +75,17 @@ class question():
 
 			print("Error: Command line argument 'pass' requires two additional command line arguments, both floating point numbers, following itself. These numbers are, respectively, the latitude and longitude of the position over which it is desired to know when the ISS will pass overhead.\n")
 
+			self.exit = 1
+
+			return
+
 # Attempt to convert the latitude input to a float value
 
 		try:
 
 			lat = float(args[0])
 
-		except TypeError:
+		except ValueError:
 
 			print("Error: First command line argument, {}, given following the command line argument of 'pass', is of bad type and can not be converted to a floating point type. Please try again with a second command line argument of type float.\n".format(args[0]))
 
@@ -92,7 +99,7 @@ class question():
 
 			lon = float(args[1])
 
-		except TypeError:
+		except ValueError:
 
 			print("Error: Second command line argument, {}, given following the command line argument of 'pass {}', is of bad type and can not be converted to a floating point type. Please try again with a third command line argument of type float.\n".format(args[1], lat))
 
@@ -112,9 +119,9 @@ class question():
 
 # Check that longitude is within bounds
 
-		if lon < -180.0 or lat > 180.0:
+		if lon < -180.0 or lon > 180.0:
 
-			print("Error: Longitude, {}, is out of bounds. Acceptable values for latitude range [-180, 180].\n".format(lat))
+			print("Error: Longitude, {}, is out of bounds. Acceptable values for latitude range [-180, 180].\n".format(lon))
 
 			self.exit = 1
 
@@ -126,23 +133,48 @@ class question():
 
 		self.lon = lon
 
+	def get_people(self):
+		"""This function pulls the current crew roster for the ISS off
+		of Open-Notify's website as their API has hard codded values"""
+
+# Pull the most recent crew roster from the web
+
+		data = json.loads(urllib.request.urlopen("http://api.open-notify.org/astros.json").read())
+
+# Extract the list of people and save that
+
+		self.data = data['people']
+
 	def respond(self):
 		"""This function manages the response to the user query"""
 		
-		
-		if self.opt[0] == "loc":
+# Collect the necessary return data given the user query
+
+		breakpoint()
+
+		if self.opt  == "loc":
+
+# get_location is method from the Open-Notify-API
 
 			self.data = get_location()
 
-		else:
+			print("The ISS's current location at {} UTC is ({:.4f}, {:.4f}).\n".format(datetime.datetime.now().replace(tzinfo=timezone.utc), self.data['iss_position']['latitude'],
+			      self.data['iss_position']['longitude']))
 
-			print("Bad input.\n")
+		if self.opt == "people":
 
+			self.data = self.get_people()
 
-		if self.data:
+		if self.opt == "pass":
 
-			print(self.data)
+# get_passes is also a method from the Open-Notify-API. On ValueError is sends
+# its own error message when the ISS remains below the horizon. Rather than exit
+# on an error, I gracefully catch this and tell the user
 
-		else:
-		
-			print("No data.\n")
+			try:
+
+				self.data = get_passes(self.lon, self.lat, 0, 1)
+
+			except ValueError:
+
+				print("Error: ISS does not pass over the coordinates ({}, {}).\n".format(self.lat, self.lon))

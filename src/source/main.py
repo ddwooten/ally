@@ -15,6 +15,14 @@ from question import question
 def main():
 	"""Iss information retreival program. """
 
+# If there were no command line arguments, error out
+
+	if len(sys.argv) < 2:
+
+		print("Error: Command line option must follow program invocation. Please provide one of the following keywords as a command line argument to this program: 'loc', 'pass', or 'people'. Please see the user manual for further information.\n")
+
+		return
+
 # Take in the command line arguments
 
 	opt = sys.argv[1] 
