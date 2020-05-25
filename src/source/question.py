@@ -6,8 +6,8 @@ import json
 import math
 from datetime import datetime, timezone
 
-from iss import *
-from update import update_tle
+from .iss import *
+from .update import update_tle
 
 ## This is the 'question' class - it executes input checking and response.
 #
