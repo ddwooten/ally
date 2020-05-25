@@ -49,13 +49,6 @@ Installation
 
 ###############################################################################
 
-Method A: Easy Street
-
-The easy way to do install this package is to use the dockerized container
-located at...
-
-Method B: Manual Installation
-
 The following python packages must be installed on your system and locatable on
 your PYTHONPATH environment variable...
 
@@ -78,6 +71,10 @@ PATH environment variable...
 Once the above dependencies have been installed on your system and this package
 is as well, go into the source/ subdirectory found inside of the src/ directory
 and adjust the permissions of the 'main.py' file to be executable. 
+
+IMPORTANT!!!
+Last but not, lease open the 'main.py' file and replace the existing file path 
+found there with the path to your system's python3 executable.
 
 Congratulations!! You have successfully installed the ISS Check Status Engine!
 
