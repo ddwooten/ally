@@ -82,3 +82,57 @@ and adjust the permissions of the 'main.py' file to be executable.
 Congratulations!! You have sucessfully installed the ISS Check Status Engine!
 
 ###############################################################################
+
+Quick Use 
+
+###############################################################################
+
+ loc:
+
+	From the command line execute the following command...
+
+	./main.py loc
+
+	...to retrieve and print to stdout the current latitude and longtitude 
+	of the ISS. 
+
+ people:
+
+	From the command line execute the following command...
+
+	./main.py people 
+
+	...to retrieve and print to stdout the current crew roster of the ISS.
+
+ pass:
+
+	From the command line execute the following command...
+
+	./main.py pass [latitude] [longitude]  
+
+	...to retrieve and print to stdout when and for how long the ISS will be
+        overhead of the corrdinates specified by [latitude] and [longitude]. 
+	[latitude] should be a floating point number in the range of [-90, 90].
+	[longtiude] should be a floating point number in the range of
+	[-180, 180].
+
+###############################################################################
+
+Licences
+
+###############################################################################
+
+This work is covered by the GNU General Public License v3.0, a copy of which is
+available at <<http://www.gnu.org/licenses/gpl-3.0.txt>>.
+
+Two files in this work, iss.py and update.py, are derivative works of files by
+the same name from the Open-Notify-API project located at 
+<<https://github.com/open-notify/Open-Notify-API>>. These files are derivative
+works in that they have been updated from their original Python2 source code
+to source code compliant with Python3.
+
+###############################################################################
+
+End
+
+###############################################################################
