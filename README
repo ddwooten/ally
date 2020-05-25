@@ -1,21 +1,84 @@
 Author: Daniel Wooten
 Date: 05/22/2020
+Contact: danieldavidwooten@gmail.com
+
+Tablel of Contents:
+
+I. Introduction
+II. Installation
+III. Quick Use
+IV. Licences
+
+###############################################################################
+
+Introduction
+
+###############################################################################
 
 
 Welcome to Daniel Wooten's Data Challenge submission! You've started at the
 right place!
 
-First, a brief tour. In keeping with tradition all source code files are found
-inside of the src/ directory. However, the top level of the src/ directory
-contains all the unit, integration, and system testing files as well as a
-directory, source/ which contains the actual source code, class files, etc.
-This convention is to allow for test driven development in Python without the
-user needing to modify their system just to run this small testing package.
-The docs/ directory is the next place you should visit! Inside there are two
-sub-directories; um/ and api/. um/ is where you can find the user manual, a
-helpful guide on how to use the "question" code. Inside
-of the api/ sub-directory you will find the applications user interface 
-document, api.pdf, which contains a more technical nuts-and-bolts look at the 
-internals of iss and how it works.
+First, a brief tour. 
 
-As far as licensure, this work is covered under the Eclipse Public Licence.
+1. The directory src/ contains all the source code files* for the whole project.
+
+2. The directory docs/ contains three subdirectories; html/, latex/, and UM/.
+UM/ contains the user manual, a pdf where you can find more detailed
+information and instructions pertaining to this package. The html/ and latex/
+subdirectories contain html and latex version, respectively, of the API for this
+package. Opening the file 'index.html' in your favorite browser will allow you
+to navigate through the documentation. If you are familar with latex you may
+with to investgate that folder. 
+
+3. The file Doxygen is a set-up file for the automatic documentaiton generation
+engine Doxygen - there is no need for you to interact with this file.
+
+* To enable test driven development without too much aditional set up on the 
+user's part to run said tests, python requires a slightly skewed directory
+structure from the convention. The src/ directory does contain all source code
+files for the whole project. On the first level it contains testing files and
+infrastructure. On this level you will find a subdirectory called source/, it
+is inside of this directory where the actual exectuable and source code may
+be found. Python pathin necessitates that these files be in a sub-directory of
+the test directory.
+
+###############################################################################
+
+Installation
+
+###############################################################################
+
+Method A: Easy Street
+
+The easy way to do install this package is to use the dockerized container
+located at...
+
+Method B: Manual Installation
+
+The following python packages must be installed on your system and locatable on
+your PYTHONPATH environment variable...
+
+1. sys
+2. os
+3. urllib
+4. json
+5. math
+6. datetime
+7. ephem
+8. calendar
+9. redis
+10. time
+
+The following programs must be installed on your system and located on your
+PATH environment variable...
+
+1. redis-server
+
+Once the above dependencies have been installed on your system and this package
+is as well, go into the source/ sub-directory found inside of the src/ directory
+and adjust the permissions of the 'main.py' file to be executable. 
+
+Congratulations!! You have sucessfully installed the ISS Check Status Engine!
+
+###############################################################################
