@@ -88,7 +88,7 @@ class question():
 		"""Checks that arguments passed for the "pass"
 	        command line option are of valid type and range."""
 
-# Pass requires a latitude and a longtitude coordinate pair, if there are not
+# Pass requires a latitude and a longitude coordinate pair, if there are not
 # at least 2 entries following the argument 'pass', the input is insufficient
 
 		if len(args) < 2:
@@ -163,7 +163,7 @@ class question():
 # Pull the most recent crew roster from the web
 		
 		##@var data
-		# complete record from the Open-Notify-API ISS personel page
+		# complete record from the Open-Notify-API ISS personnel page
 		data = json.loads(urllib.request.urlopen("http://api.open-notify.org/astros.json").read())
 
 # Extract the list of people and save that
@@ -189,7 +189,7 @@ class question():
 
 			self.get_people()
 
-# If the data pull was sucessful...
+# If the data pull was successful...
 
 			if self.data is not None:
 				
@@ -201,11 +201,11 @@ class question():
 
 					print("\nName: {}\nCraft: {}\n".format(person['name'], person['craft']))
 
-# If the data pull was unsucessful...
+# If the data pull was unsuccessful...
 
 			else:
 
-				print("Error: Unable to retrieve personel list for the ISS. Please check your internet connection and try again.\n")
+				print("Error: Unable to retrieve personnel list for the ISS. Please check your internet connection and try again.\n")
 
 		if self.opt == "pass":
 
@@ -219,7 +219,7 @@ class question():
 
 				self.data = get_passes(self.lon, self.lat, 0, 1)
 
-# If the data pull was sucessful...
+# If the data pull was successful...
 
 				if self.data is not None:
 
@@ -230,11 +230,11 @@ class question():
 					date = datetime.datetime.fromtimestamp(self.data['request']['datetime'])
 					print("The ISS will be overhead ({}, {}) at {} UTC for {} minutes and {} seconds.\n".format(self.lat, self.lon, date, minutes, seconds)) 
 
-# If the data pull was unsucessful...
+# If the data pull was unsuccessful...
 
 				else:
 
-					print("Error: Failure to collect ISS personel roster. Please check your internet connection and try again.\n")
+					print("Error: Failure to collect ISS personnel roster. Please check your internet connection and try again.\n")
 
 # In the event that Open-Notify informs us the ISS will be below the horizon
 

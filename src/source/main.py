@@ -18,21 +18,21 @@ from question import question
 def main():
 	"""Iss check status engine. 
 		
-	This function, when executed from the command line with the appropirate
-	arguments will retreive from the web and display certain informations
+	This function, when executed from the command line with the appropriate
+	arguments will retrieve from the web and display certain informations
 	pertaining to the ISS.
 	
 	For more detailed notes on usage, please see the user manual located
 	two levels up the directory and inside of the docs/ subdirectory.
 	
 	The command line invocation for this function requires at least one
-	variabale command line argument and up to three depending on choices
+	variable command line argument and up to three depending on choices
 	made by the user.
 	
 	Command line options and their resulting behavior are described below.
 	
 	1. 'loc' - provides the current location of the ISS in
-	(latitude, longtitude)
+	(latitude, longitude)
 	
 	2. 'people' - provides the current crew roster of the ISS.
 	
@@ -65,7 +65,7 @@ def main():
 
 		args = []
 
-# Let the user know they have sucessfully entered the program
+# Let the user know they have successfully entered the program
 
 	print("\nWelcome to the ISS status check engine!\n")
 
@@ -84,11 +84,11 @@ def main():
 
 		return
 
-# Have the question class respond to the reqest posed by the input
+# Have the question class respond to the request posed by the input
 
 	query.respond()
 
-# Let the user know they have exited the program sucessfully
+# Let the user know they have exited the program successfully
 
 	print("Thank you for using the ISS status check engine!\n")
 

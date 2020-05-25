@@ -2,7 +2,7 @@ Author: Daniel Wooten
 Date: 05/22/2020
 Contact: danieldavidwooten@gmail.com
 
-Tablel of Contents:
+Table of Contents:
 
 I. Introduction
 II. Installation
@@ -28,19 +28,19 @@ UM/ contains the user manual, a pdf where you can find more detailed
 information and instructions pertaining to this package. The html/ and latex/
 subdirectories contain html and latex version, respectively, of the API for this
 package. Opening the file 'index.html' in your favorite browser will allow you
-to navigate through the documentation. If you are familar with latex you may
-with to investgate that folder. 
+to navigate through the documentation. If you are familiar with latex you may
+with to investigate that folder. 
 
-3. The file Doxygen is a set-up file for the automatic documentaiton generation
+3. The file Doxygen is a set-up file for the automatic documentation generation
 engine Doxygen - there is no need for you to interact with this file.
 
-* To enable test driven development without too much aditional set up on the 
+* To enable test driven development without too much additional set up on the 
 user's part to run said tests, python requires a slightly skewed directory
 structure from the convention. The src/ directory does contain all source code
 files for the whole project. On the first level it contains testing files and
 infrastructure. On this level you will find a subdirectory called source/, it
-is inside of this directory where the actual exectuable and source code may
-be found. Python pathin necessitates that these files be in a sub-directory of
+is inside of this directory where the actual executable and source code may
+be found. Python testing necessitates that these files be in a subdirectory of
 the test directory.
 
 ###############################################################################
@@ -76,10 +76,10 @@ PATH environment variable...
 1. redis-server
 
 Once the above dependencies have been installed on your system and this package
-is as well, go into the source/ sub-directory found inside of the src/ directory
+is as well, go into the source/ subdirectory found inside of the src/ directory
 and adjust the permissions of the 'main.py' file to be executable. 
 
-Congratulations!! You have sucessfully installed the ISS Check Status Engine!
+Congratulations!! You have successfully installed the ISS Check Status Engine!
 
 ###############################################################################
 
@@ -93,7 +93,7 @@ Quick Use
 
 	./main.py loc
 
-	...to retrieve and print to stdout the current latitude and longtitude 
+	...to retrieve and print to stdout the current latitude and longitude 
 	of the ISS. 
 
  people:
@@ -111,9 +111,9 @@ Quick Use
 	./main.py pass [latitude] [longitude]  
 
 	...to retrieve and print to stdout when and for how long the ISS will be
-        overhead of the corrdinates specified by [latitude] and [longitude]. 
+        overhead of the coordinates specified by [latitude] and [longitude]. 
 	[latitude] should be a floating point number in the range of [-90, 90].
-	[longtiude] should be a floating point number in the range of
+	[longitude] should be a floating point number in the range of
 	[-180, 180].
 
 ###############################################################################
