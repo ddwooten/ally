@@ -74,7 +74,7 @@ and adjust the permissions of the 'main.py' file to be executable.
 
 IMPORTANT!!!
 Last but not, lease open the 'main.py' file and replace the existing file path 
-found there with the path to your system's python3 executable.
+found there with the path to your system's Python 3 interpreter.
 
 Congratulations!! You have successfully installed the ISS Check Status Engine!
 
