@@ -1,9 +1,9 @@
 #!/home/dwooten/anaconda3/bin/python
 
-## @package run_unit_tests
-# This file contains all unit tests and the test running infrastructure.
+## @package run_integration_tests
+# This file contains all integration tests and the test running infrastructure.
 #
-# Test information is output to the created file unit_Tests.test.
+# Test information is output to the created file integration_Tests.test.
 #
 # Creator: Daniel Wooten
 # Date: 05/22/2020
@@ -11,9 +11,9 @@
 
 from source.question import question 
 
-def bad_option_test():
+def bad_latitude_test():
 	"""Tests to see if the question class sets its exit status to 1
-	following the input of a bad command line argument"""
+	following the input of an out of bounds latitude"""
 	
 	##@var expected_value
 	# passing value for the test
@@ -29,7 +29,7 @@ def bad_option_test():
 
 	##@var opt
 	# fake user input option
-	opt = "fake"
+	opt = "pass"
 
 	##@var args
 	# fake user input options
@@ -51,22 +51,37 @@ def bad_option_test():
 
 		return(0)
 
-def version_test():
-	"""Tests to see if the iss class returns its version number correctly"""
-
+def bad_longitude_test():
+	"""Tests to see if the question class sets its exit status to 1
+	following the input of an out of bounds longitude"""
+	
 	##@var expected_value
 	# passing value for the test
 	expected_value = 1
 
 # Get an instance of the class to work with
-
-	##@var station
+	
+	##@var query
 	# instance of the question class
-	station = question()
+	query = question()
 
-# Check if the version number is correct
+# Creat fake user input
 
-	test_value = station.version
+	##@var opt
+	# fake user input option
+	opt = "pass"
+
+	##@var args
+	# fake user input options
+	args = ["42", "185"]
+
+	query.check_input(opt, args)
+
+# Get the value to check which in this case is the exit status
+
+	test_value = query.exit
+
+# Check the value and report
 
 	if test_value == expected_value:
 
@@ -77,23 +92,23 @@ def version_test():
 		return(0)
 
 def main():
-	"""Manages the execution of the unit tests"""
+	"""Manages the execution of the integration tests"""
 
-	print("\nBegining unit tests.\n")
+	print("\nBegining integration tests.\n")
 
 	##@var tests
-	# dictionary for holding all unit tests to be executed
+	# dictionary for holding all integration tests to be executed
 	tests = {}
 
 # Attempt to open a file to return tests results
 
 	try:	
 
-		out_file = open("unit_Test.test", "w")
+		out_file = open("integration_Test.test", "w")
 
 	except OSError:
 
-		print("Failed to open unit_Test.test. Exiting gracefully.\n")
+		print("Failed to open integration_Test.test. Exiting gracefully.\n")
 
 		return()
 
@@ -111,9 +126,9 @@ def main():
 
 # Populate the tests dictionary and in doing so call and execute the tests
 
-	tests['version_test'] = version_test()
+	tests['bad_latitude_test'] = bad_latitude_test()
 
-	tests['bad_option_test'] = bad_option_test()
+	tests['bad_longitude_test'] = bad_longitude_test()
 
 # Initilize some counter varaibles
 
