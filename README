@@ -24,6 +24,7 @@ First, a brief tour.
 1. The directory src/ contains all the source code files* for the whole project.
 
 2. The directory docs/ contains three subdirectories; html/, latex/, and UM/.
+If the docs/ directory is not present, please skip ahead to point 3.
 UM/ contains the user manual, a pdf where you can find more detailed
 information and instructions pertaining to this package. The html/ and latex/
 subdirectories contain html and latex version, respectively, of the API for this
@@ -32,7 +33,11 @@ to navigate through the documentation. If you are familiar with latex you may
 with to investigate that folder. 
 
 3. The file Doxygen is a set-up file for the automatic documentation generation
-engine Doxygen - there is no need for you to interact with this file.
+engine Doxygen. If you pulled this repository from git, you will need to build
+the documentation yourself. This is accomplished by having the program Doxygen
+installed on your system and executing the command "doxygen" in the same
+directory as the aforementioned Doxygen file. Doxygen will then build the
+documentation as well as the docs/ folder.
 
 * To enable test driven development without too much additional set up on the 
 user's part to run said tests, python requires a slightly skewed directory
